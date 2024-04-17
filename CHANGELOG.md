@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+## 0.3.3
+
+### Changed
+- Updated supported intellij platform to `2024.1`
+
 ## 0.3.2
 
 ### Changed

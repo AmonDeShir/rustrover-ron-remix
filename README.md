@@ -8,14 +8,14 @@ Plugin adds support for Rusty Object Notation files.
 
 Features included:
  - Code highlighting
- - Color settings where you could customize highliting to better suit your experience
+ - Color settings where you could customize highlighting to better suit your experience
  - Comment/uncomment line hotkey
  - Code folding
  - Structural braces matching
  - Basic autocompletion for options and extensions
  - Semantic highlighting to differentiate object key and name identifiers
- - Automatic code formatting (such as identation fixes)
- - Error checkers for dictionaries and objects (key uniquenes and more)
+ - Automatic code formatting (such as indentation fixes)
+ - Error checkers for dictionaries and objects (key uniqueness and more)
 
 <!-- Plugin description end -->
 
