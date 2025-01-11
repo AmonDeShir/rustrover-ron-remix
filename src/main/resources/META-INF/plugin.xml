@@ -1,18 +1,10 @@
 <idea-plugin>
     <id>com.github.amondeshir.rustroverronremix</id>
     <name>RON Extended Support (Rust Rover)</name>
-    <vendor>amondeshir</vendor>
+    <vendor>Amon De Shir</vendor>
 
-    <description><![CDATA[
-    Plugin adds support for Rusty Object Notation files.
-
-    This is initially a fork of [intellij-ron-remix](https://github.com/amondeshir/intellij-ron-remix).
-    ]]></description>
-
-    <!-- Product and plugin compatibility requirements -->
-    <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
-    <depends optional="true" config-file="com.github.amondeshir.rustroverronremix-rust.xml">org.rust.lang</depends>
+    <depends optional="true" config-file="com.github.amondeshir.rustroverronremix-rust.xml">com.jetbrains.rust</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType
