@@ -1,10 +1,10 @@
-# RON Extended Support (RustRover)
+# RON Extended Support for Rust Rover
 ![Kotlin][Kotlin-badge]
 ![Build][Build]
 [![download-img][Download-badge]][Download-link]
 
 <!-- Plugin description -->
-Plugin adds support for Rusty Object Notation files.
+Plugin adds support for Rusty Object Notation files to Rust Rover.
 
 Features included:
  - Code highlighting

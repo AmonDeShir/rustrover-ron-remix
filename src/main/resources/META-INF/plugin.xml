@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.github.amondeshir.rustroverronremix</id>
-    <name>RON Extended Support (Rust Rover)</name>
+    <name>RON Extended Support for Rust Rover</name>
     <vendor>Amon De Shir</vendor>
 
     <depends>com.intellij.modules.platform</depends>
