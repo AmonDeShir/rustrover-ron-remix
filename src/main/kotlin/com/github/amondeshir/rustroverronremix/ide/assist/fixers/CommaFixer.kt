@@ -1,6 +1,9 @@
 package com.github.amondeshir.rustroverronremix.ide.assist.fixers
 
-import com.github.amondeshir.rustroverronremix.language.psi.*
+import com.github.amondeshir.rustroverronremix.language.psi.endOffset
+import com.github.amondeshir.rustroverronremix.language.psi.getNextNonCommentSibling
+import com.github.amondeshir.rustroverronremix.language.psi.getPrevNonCommentSibling
+import com.github.amondeshir.rustroverronremix.language.psi.getPrevNonWhitespaceSibling
 import com.intellij.lang.SmartEnterProcessorWithFixers
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement

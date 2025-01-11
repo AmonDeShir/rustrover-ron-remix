@@ -2,10 +2,9 @@
 package com.github.amondeshir.rustroverronremix.language.psi;
 
 import com.github.amondeshir.rustroverronremix.language.psi.impl.*;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
-import com.github.amondeshir.rustroverronremix.language.psi.impl.*;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 
 public interface RONTypes {
 

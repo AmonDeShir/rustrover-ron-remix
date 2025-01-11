@@ -1,7 +1,5 @@
 package com.github.amondeshir.rustroverronremix.rust
 
-import com.github.amondeshir.rustroverronremix.language.psi.RONFieldName
-import com.github.amondeshir.rustroverronremix.language.psi.RONObjectName
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar

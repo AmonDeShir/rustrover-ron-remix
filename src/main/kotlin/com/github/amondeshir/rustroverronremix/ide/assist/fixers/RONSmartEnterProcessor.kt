@@ -1,13 +1,11 @@
 package com.github.amondeshir.rustroverronremix.ide.assist.fixers
 
-import com.github.amondeshir.rustroverronremix.language.psi.*
+import com.github.amondeshir.rustroverronremix.language.psi.RONFile
 import com.intellij.lang.SmartEnterProcessorWithFixers
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiErrorElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiWhiteSpace
 
 class RONSmartEnterProcessor : SmartEnterProcessorWithFixers() {
     init {

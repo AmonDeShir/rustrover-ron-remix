@@ -1,7 +1,6 @@
 package com.github.amondeshir.rustroverronremix.ide.completion
 
 import com.github.amondeshir.rustroverronremix.language.psi.RONExt
-import com.github.amondeshir.rustroverronremix.language.psi.RONExtensions
 import com.github.amondeshir.rustroverronremix.language.psi.RONObjectName
 import com.github.amondeshir.rustroverronremix.language.psi.RONTypes
 import com.github.amondeshir.rustroverronremix.language.psi.RONValue

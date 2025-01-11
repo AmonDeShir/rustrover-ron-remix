@@ -9,7 +9,6 @@ import com.intellij.psi.impl.source.PsiFileImpl
 import com.intellij.psi.stubs.StubElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.prevLeaf
-import com.intellij.util.SmartList
 
 val RONNamedField?.keyText get() = this?.fieldName?.text
 fun RONNamedField?.keyTextMatches(other: CharSequence?) =

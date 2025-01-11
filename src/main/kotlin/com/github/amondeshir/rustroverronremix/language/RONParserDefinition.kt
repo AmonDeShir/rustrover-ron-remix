@@ -1,6 +1,5 @@
 package com.github.amondeshir.rustroverronremix.language
 
-import com.github.amondeshir.rustroverronremix.language.parser._RONParser
 import com.github.amondeshir.rustroverronremix.language.psi.RONFile
 import com.github.amondeshir.rustroverronremix.language.psi.RONTypes
 import com.intellij.lang.ASTNode
