@@ -1,4 +1,4 @@
-# RON Extended Support
+# RON Extended Support (RustRover)
 ![Kotlin][Kotlin-badge]
 ![Build][Build]
 [![download-img][Download-badge]][Download-link]
@@ -23,12 +23,12 @@ Features included:
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "RON Extended Support"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "RON Extended Support (RustRover)"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
 
-  Download the [latest release](https://github.com/madwareru/intellij-ron-remix/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/AmonDeShir/rustrover-ron-remix/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 ---
@@ -39,4 +39,4 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 [Download-badge]: https://img.shields.io/badge/Get-from_marketplace-vibrantgreen?labelColor=303437
 [Download-link]: https://plugins.jetbrains.com/plugin/15878-ron-extended-support
 [Kotlin-badge]: https://img.shields.io/badge/Made_with-Kotlin-0095D5?logo=kotlin&logoColor=0095D5&labelColor=303437
-[Build]: https://github.com/madwareru/intellij-ron-remix/workflows/Build/badge.svg
+[Build]: https://github.com/rustrover/rustrover-ron-remix/workflows/Build/badge.svg

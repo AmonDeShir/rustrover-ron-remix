@@ -1,94 +1,94 @@
 <idea-plugin>
-    <id>com.github.madwareru.intellijronremix</id>
-    <name>RON Extended Support</name>
-    <vendor>madwareru</vendor>
+    <id>com.github.amondeshir.rustroverronremix</id>
+    <name>RON Extended Support (Rust Rover)</name>
+    <vendor>amondeshir</vendor>
 
     <description><![CDATA[
     Plugin adds support for Rusty Object Notation files.
 
-    This is initially a fork of [intellij-ron](https://github.com/ron-rs/intellij-ron).
+    This is initially a fork of [intellij-ron-remix](https://github.com/amondeshir/intellij-ron-remix).
     ]]></description>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
-    <depends optional="true" config-file="com.github.madwareru.intellijronremix-rust.xml">org.rust.lang</depends>
+    <depends optional="true" config-file="com.github.amondeshir.rustroverronremix-rust.xml">org.rust.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType
                 name="RON file"
-                implementationClass="com.github.madwareru.intellijronremix.language.RONFileType"
+                implementationClass="com.github.amondeshir.rustroverronremix.language.RONFileType"
                 fieldName="INSTANCE"
                 language="RON"
                 extensions="ron"
         />
         <lang.parserDefinition
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.language.RONParserDefinition"
+                implementationClass="com.github.amondeshir.rustroverronremix.language.RONParserDefinition"
         />
         <lang.syntaxHighlighter
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.RONSyntaxHighlighter"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.RONSyntaxHighlighter"
         />
         <colorSettingsPage
-                implementation="com.github.madwareru.intellijronremix.ide.colors.RONColorSettingsPage"
+                implementation="com.github.amondeshir.rustroverronremix.ide.colors.RONColorSettingsPage"
         />
         <lang.commenter
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.RONCommenter"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.RONCommenter"
         />
         <lang.braceMatcher
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.braces.RONBraceMatcher"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.braces.RONBraceMatcher"
         />
         <lang.quoteHandler
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.RONQuoteHandler"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.RONQuoteHandler"
         />
         <lang.foldingBuilder
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.folding.RONFoldingBuilder"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.folding.RONFoldingBuilder"
         />
         <indexPatternBuilder
-                implementation="com.github.madwareru.intellijronremix.ide.todo.RONTodoIndexPatternBuilder"
+                implementation="com.github.amondeshir.rustroverronremix.ide.todo.RONTodoIndexPatternBuilder"
         />
         <todoIndexer
                 filetype="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.todo.RONTodoIndexer"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.todo.RONTodoIndexer"
         />
         <completion.contributor
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.completion.RONOptionCompletionContributor"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.completion.RONOptionCompletionContributor"
         />
         <annotator
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.annotator.RONHighlightingAnnotator"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.annotator.RONHighlightingAnnotator"
         />
         <annotator
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.annotator.checkers.RONObjectCheckerAnnotator"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.annotator.checkers.RONObjectCheckerAnnotator"
         />
         <annotator
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.annotator.checkers.RONMapCheckerAnnotator"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.annotator.checkers.RONMapCheckerAnnotator"
         />
         <additionalTextAttributes scheme="Default" file="colors/RONDefault.xml"/>
         <additionalTextAttributes scheme="Darcula" file="colors/RONDarcula.xml"/>
         <langCodeStyleSettingsProvider
-                implementation="com.github.madwareru.intellijronremix.ide.codestyle.RONLanguageCodeStyleSettingsProvider"
+                implementation="com.github.amondeshir.rustroverronremix.ide.codestyle.RONLanguageCodeStyleSettingsProvider"
         />
         <lang.formatter
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.formatter.RONFormattingModelBuilder"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.formatter.RONFormattingModelBuilder"
         />
         <lang.smartEnterProcessor
                 language="RON"
-                implementationClass="com.github.madwareru.intellijronremix.ide.assist.fixers.RONSmartEnterProcessor"
+                implementationClass="com.github.amondeshir.rustroverronremix.ide.assist.fixers.RONSmartEnterProcessor"
         />
     </extensions>
     <actions>
-        <action id="com.github.madwareru.intellijronremix.ide.actions.RONCreateFile"
-                class="com.github.madwareru.intellijronremix.ide.actions.RONCreateFile"
+        <action id="com.github.amondeshir.rustroverronremix.ide.actions.RONCreateFile"
+                class="com.github.amondeshir.rustroverronremix.ide.actions.RONCreateFile"
                 text="RON File"
                 description="Create new RON file">
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>

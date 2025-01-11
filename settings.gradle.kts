@@ -1,1 +1,1 @@
-rootProject.name = "RON Extended Support"
+rootProject.name = "RON Extended Support (RustRover)"

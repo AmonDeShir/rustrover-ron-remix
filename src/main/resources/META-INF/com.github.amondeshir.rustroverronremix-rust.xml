@@ -1,0 +1,5 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <psi.referenceContributor implementation="com.github.amondeshir.rustroverjronremix.rust.RustReferenceContributor" language="RON"/>
+    </extensions>
+</idea-plugin>
