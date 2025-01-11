@@ -2,12 +2,11 @@
 
 # RON Extended Support Changelog
 
-## Unreleased
-
-## 0.3.4
+## [Unreleased]
 
 ### Changed
-- Updated supported intellij platform to `2024.3`
+- Add support for Rust Rover 2024.3.2
+- Drop support for intellij and clion
 
 ## 0.3.3
 
