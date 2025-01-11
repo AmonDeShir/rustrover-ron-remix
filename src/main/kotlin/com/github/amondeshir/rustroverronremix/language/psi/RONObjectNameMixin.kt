@@ -6,7 +6,7 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 
 abstract class RONObjectNameMixin(node: ASTNode): ASTWrapperPsiElement(node),
-    com.github.amondeshir.rustroverronremix.language.psi.RONObjectName {
+    RONObjectName {
     override fun getReference(): PsiReference? {
         val references = references
         return if (references.size == 1) references[0] else null

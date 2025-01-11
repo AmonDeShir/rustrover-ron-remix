@@ -32,8 +32,8 @@ import org.rust.lang.core.types.ty.TyReference as RsTypeRef
 import org.rust.lang.core.types.ty.TySlice as RsTypeSlice
 import org.rust.lang.core.types.ty.TyTuple as RsTypeTuple
 
-private val com.github.amondeshir.rustroverronremix.language.psi.RONObjectName.normalizedName: NormalizedName get() = NormalizedName(text.removePrefix("r#"))
-private val com.github.amondeshir.rustroverronremix.language.psi.RONFieldName.normalizedName: NormalizedName get() = NormalizedName(text.removePrefix("r#"))
+private val RONObjectName.normalizedName: NormalizedName get() = NormalizedName(text.removePrefix("r#"))
+private val RONFieldName.normalizedName: NormalizedName get() = NormalizedName(text.removePrefix("r#"))
 private val RsNamedFieldDecl.normalizedName: NormalizedName get() = identifier
     .text
     .removePrefix("r#")
@@ -67,11 +67,11 @@ val PsiElement.ronToRustInferenceContext: InferenceResult
     get() = (this.containingFile as RONFile)
             .ronToRustInferenceContext
 
-val com.github.amondeshir.rustroverronremix.language.psi.RONObjectName.inference: TypeInferenceResult get() = ronToRustInferenceContext
+val RONObjectName.inference: TypeInferenceResult get() = ronToRustInferenceContext
     .objects
     .getValue(this)
 
-val com.github.amondeshir.rustroverronremix.language.psi.RONFieldName.inference: FieldInferenceResult get() = ronToRustInferenceContext
+val RONFieldName.inference: FieldInferenceResult get() = ronToRustInferenceContext
     .fields
     .getValue(this)
 
@@ -156,8 +156,8 @@ data class TypeInferenceResult(
 }
 
 class InferenceResult(
-    val fields: Map<com.github.amondeshir.rustroverronremix.language.psi.RONFieldName, FieldInferenceResult>,
-    val objects: Map<com.github.amondeshir.rustroverronremix.language.psi.RONObjectName, TypeInferenceResult>,
+    val fields: Map<RONFieldName, FieldInferenceResult>,
+    val objects: Map<RONObjectName, TypeInferenceResult>,
 )
 
 data class RsInferredField(val decl: RsNamedFieldDecl, val rawType: RsType, val normType: RsType) {
@@ -176,13 +176,13 @@ data class RsInferredField(val decl: RsNamedFieldDecl, val rawType: RsType, val 
 }
 
 private class InferenceBuilder(
-    val fields: MutableMap<com.github.amondeshir.rustroverronremix.language.psi.RONFieldName, FieldInferenceResult> = mutableMapOf(),
-    val objects: MutableMap<com.github.amondeshir.rustroverronremix.language.psi.RONObjectName, TypeInferenceResult> = mutableMapOf(),
+    val fields: MutableMap<RONFieldName, FieldInferenceResult> = mutableMapOf(),
+    val objects: MutableMap<RONObjectName, TypeInferenceResult> = mutableMapOf(),
 ) {
     fun finish(): InferenceResult = InferenceResult(fields, objects)
 
     fun inferFile(file: RONFile): InferenceBuilder {
-        val value = file.childOfType<com.github.amondeshir.rustroverronremix.language.psi.RONValue>() ?: return this
+        val value = file.childOfType<RONValue>() ?: return this
         inferValue(value, emptySet())
         return this
     }
@@ -203,7 +203,7 @@ private class InferenceBuilder(
     private fun Iterable<RsType>.deref(): List<RsType> = map { it.deref() }
 
     private fun inferValue(
-        value: com.github.amondeshir.rustroverronremix.language.psi.RONValue,
+        value: RONValue,
         possibleTypes: Set<RsType>,
         possibleOwnersForFieldVariants: Set<TypeWithFieldOwner> = emptySet()
     ) = possibleTypes
@@ -212,16 +212,16 @@ private class InferenceBuilder(
             .toSet()
             .let { adaptedTypes ->
                 when (val child = value.children.singleOrNull()) {
-                    is com.github.amondeshir.rustroverronremix.language.psi.RONOption -> inferOption(child, adaptedTypes)
-                    is com.github.amondeshir.rustroverronremix.language.psi.RONList -> inferList(child, adaptedTypes)
-                    is com.github.amondeshir.rustroverronremix.language.psi.RONMap -> inferMap(child, adaptedTypes)
-                    is com.github.amondeshir.rustroverronremix.language.psi.RONObject -> inferObject(child, adaptedTypes)
-                    is com.github.amondeshir.rustroverronremix.language.psi.RONTuple -> inferTuple(child, adaptedTypes)
-                    is com.github.amondeshir.rustroverronremix.language.psi.RONObjectName -> inferObjectName(child, adaptedTypes, possibleOwnersForFieldVariants)
+                    is RONOption -> inferOption(child, adaptedTypes)
+                    is RONList -> inferList(child, adaptedTypes)
+                    is RONMap -> inferMap(child, adaptedTypes)
+                    is RONObject -> inferObject(child, adaptedTypes)
+                    is RONTuple -> inferTuple(child, adaptedTypes)
+                    is RONObjectName -> inferObjectName(child, adaptedTypes, possibleOwnersForFieldVariants)
                 }
             }
 
-    private fun inferOption(option: com.github.amondeshir.rustroverronremix.language.psi.RONOption, possibleTypes: Set<RsType>) {
+    private fun inferOption(option: RONOption, possibleTypes: Set<RsType>) {
         option.value?.let { someBody ->
             possibleTypes
                 .mapNotNull {
@@ -238,7 +238,7 @@ private class InferenceBuilder(
         }
     }
 
-    private fun inferList(list: com.github.amondeshir.rustroverronremix.language.psi.RONList, possibleTypes: Set<RsType>) {
+    private fun inferList(list: RONList, possibleTypes: Set<RsType>) {
         // We just assume, that the inner type is the first type argument.
         // This is true for all std::collection elements, that are serialized as lists,
         // so we hope the generic lists from libraries will mostly stick to that convention.
@@ -256,7 +256,7 @@ private class InferenceBuilder(
         list.valueList.forEach { inferValue(it, possibleInnerTypes) }
     }
 
-    private fun inferMap(map: com.github.amondeshir.rustroverronremix.language.psi.RONMap, possibleTypes: Set<RsType>) {
+    private fun inferMap(map: RONMap, possibleTypes: Set<RsType>) {
         // We just assume, that the key type is the first type argument and the value type is the second type argument.
         // This is true for all std::collection elements, that are serialized as lists,
         // so I hope the generic maps from libraries will mostly stick to that convention.
@@ -395,7 +395,7 @@ private class InferenceBuilder(
         fun hasName(name: NormalizedName): Boolean = fieldOwner.normalizedName == name
     }
 
-    private fun inferObject(obj: com.github.amondeshir.rustroverronremix.language.psi.RONObject, possibleTypes: Set<RsType>) {
+    private fun inferObject(obj: RONObject, possibleTypes: Set<RsType>) {
         val fieldNameTexts = obj.objectBody
             .namedFieldList
             .map { it.fieldName.normalizedName }
@@ -491,7 +491,7 @@ private class InferenceBuilder(
         else -> emptyList()
     }.map { it.substitute(typeParameterValues) }
 
-    private fun inferTuple(tuple: com.github.amondeshir.rustroverronremix.language.psi.RONTuple, possibleTypes: Set<RsType>) {
+    private fun inferTuple(tuple: RONTuple, possibleTypes: Set<RsType>) {
         when (val name = tuple.objectName) {
             null -> {
                 val possibleOwnersForFieldVariants = possibleTypes
@@ -547,7 +547,7 @@ private class InferenceBuilder(
     }
 
     private fun inferObjectName(
-        objName: com.github.amondeshir.rustroverronremix.language.psi.RONObjectName,
+        objName: RONObjectName,
         possibleTypes: Set<RsType>,
         possibleOwnersForFieldVariants: Set<TypeWithFieldOwner>
     ) {
@@ -579,7 +579,7 @@ private class InferenceBuilder(
             }
 
         val usedFieldNames = objName
-            .parentOfType<com.github.amondeshir.rustroverronremix.language.psi.RONObjectBody>(false)
+            .parentOfType<RONObjectBody>(false)
             ?.namedFieldList.orEmpty()
             .map { it.fieldName.normalizedName }
 

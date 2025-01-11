@@ -10,9 +10,9 @@ import com.intellij.util.ProcessingContext
 object RustReferenceProvider : PsiReferenceProvider() {
     override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
         return when (element) {
-            is com.github.amondeshir.rustroverronremix.language.psi.RONObjectName -> arrayOf(RonToRustTypeReference(element))
-            is com.github.amondeshir.rustroverronremix.language.psi.RONFieldName -> arrayOf(
-                com.github.amondeshir.rustroverronremix.rust.RonToRustFieldReference(
+            is RONObjectName -> arrayOf(RonToRustTypeReference(element))
+            is RONFieldName -> arrayOf(
+                RonToRustFieldReference(
                     element
                 )
             )

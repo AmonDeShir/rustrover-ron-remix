@@ -27,12 +27,12 @@ class RONFoldingBuilder : CustomFoldingBuilder(), DumbAware {
 
     override fun getLanguagePlaceholderText(node: ASTNode, range: TextRange) =
         when (node.elementType) {
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.LIST -> "[...]"
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.OBJECT_BODY -> "..."
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.TUPLE -> "(...)"
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.MAP -> "{...}"
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BLOCK_COMMENT -> "/*...*/"
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.EXTENSIONS -> "#![...]"
+            RONTypes.LIST -> "[...]"
+            RONTypes.OBJECT_BODY -> "..."
+            RONTypes.TUPLE -> "(...)"
+            RONTypes.MAP -> "{...}"
+            RONTypes.BLOCK_COMMENT -> "/*...*/"
+            RONTypes.EXTENSIONS -> "#![...]"
             else -> "{...}"
         }
 
@@ -40,33 +40,33 @@ class RONFoldingBuilder : CustomFoldingBuilder(), DumbAware {
 }
 
 private class RONFoldingVisitor(private val descriptors: MutableList<FoldingDescriptor>) : RONRecursiveVisitor() {
-    override fun visitList(o: com.github.amondeshir.rustroverronremix.language.psi.RONList) {
+    override fun visitList(o: RONList) {
         if (o.valueList.isNotEmpty()) {
             fold(o)
             super.visitList(o)
         }
     }
 
-    override fun visitExtensions(o: com.github.amondeshir.rustroverronremix.language.psi.RONExtensions) {
+    override fun visitExtensions(o: RONExtensions) {
         fold(o)
         super.visitExtensions(o)
     }
 
-    override fun visitObjectBody(o: com.github.amondeshir.rustroverronremix.language.psi.RONObjectBody) {
+    override fun visitObjectBody(o: RONObjectBody) {
         if (o.namedFieldList.isNotEmpty()) {
             fold(o)
             super.visitObjectBody(o)
         }
     }
 
-    override fun visitTupleBody(o: com.github.amondeshir.rustroverronremix.language.psi.RONTupleBody) {
+    override fun visitTupleBody(o: RONTupleBody) {
         if (o.valueList.isNotEmpty()) {
             fold(o)
             super.visitTupleBody(o)
         }
     }
 
-    override fun visitMap(o: com.github.amondeshir.rustroverronremix.language.psi.RONMap) {
+    override fun visitMap(o: RONMap) {
         if (o.mapEntryList.isNotEmpty()) {
             fold(o)
             super.visitMap(o)
@@ -74,7 +74,7 @@ private class RONFoldingVisitor(private val descriptors: MutableList<FoldingDesc
     }
 
     override fun visitComment(comment: PsiComment) {
-        if (comment.tokenType == com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BLOCK_COMMENT) {
+        if (comment.tokenType == RONTypes.BLOCK_COMMENT) {
             fold(comment)
             super.visitComment(comment)
         }

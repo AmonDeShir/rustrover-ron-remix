@@ -20,10 +20,10 @@ class RONSyntaxHighlighter : SyntaxHighlighterBase() {
 
     private fun getTokenColor(tokenType: IElementType): RONColor? {
         return when (tokenType) {
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COLON -> RONColor.COLON
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMA -> RONColor.COMMA
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BOOLEAN -> RONColor.BOOLEAN
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.IDENT -> RONColor.IDENTIFIER
+            RONTypes.COLON -> RONColor.COLON
+            RONTypes.COMMA -> RONColor.COMMA
+            RONTypes.BOOLEAN -> RONColor.BOOLEAN
+            RONTypes.IDENT -> RONColor.IDENTIFIER
             TokenType.BAD_CHARACTER -> RONColor.BAD_CHAR
             else -> getTokenColorSpecial(tokenType)
         }
@@ -31,13 +31,13 @@ class RONSyntaxHighlighter : SyntaxHighlighterBase() {
 
     private fun getTokenColorSpecial(tokenType: IElementType): RONColor? {
         return when (tokenType) {
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISL, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISR -> RONColor.PARENTHESES
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETL, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETR -> RONColor.BRACKETS
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACEL, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACER -> RONColor.BRACES
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.INTEGER, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.FLOAT -> RONColor.NUMBER
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.STRING, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.RAW_STRING, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.CHAR -> RONColor.STRING
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.SOME, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.NONE -> RONColor.OPTION
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMENT, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BLOCK_COMMENT -> RONColor.COMMENT
+            RONTypes.PARENTHESISL, RONTypes.PARENTHESISR -> RONColor.PARENTHESES
+            RONTypes.BRACKETL, RONTypes.BRACKETR -> RONColor.BRACKETS
+            RONTypes.BRACEL, RONTypes.BRACER -> RONColor.BRACES
+            RONTypes.INTEGER, RONTypes.FLOAT -> RONColor.NUMBER
+            RONTypes.STRING, RONTypes.RAW_STRING, RONTypes.CHAR -> RONColor.STRING
+            RONTypes.SOME, RONTypes.NONE -> RONColor.OPTION
+            RONTypes.COMMENT, RONTypes.BLOCK_COMMENT -> RONColor.COMMENT
             else -> null
         }
     }

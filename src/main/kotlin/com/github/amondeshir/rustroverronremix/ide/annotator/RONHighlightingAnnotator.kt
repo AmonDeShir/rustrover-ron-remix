@@ -15,25 +15,25 @@ class RONHighlightingAnnotator : AnnotatorBase() {
         if (holder.isBatchMode || parent == null) return
 
         when (parent) {
-            is com.github.amondeshir.rustroverronremix.language.psi.RONExt -> if (parent.ident != element) {
+            is RONExt -> if (parent.ident != element) {
                 holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(RONColor.EXTENSION.textAttributesKey)
                     .create()
             }
-            is com.github.amondeshir.rustroverronremix.language.psi.RONObject -> if (parent.objectName == element) {
+            is RONObject -> if (parent.objectName == element) {
                 holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(RONColor.OBJECT_NAME.textAttributesKey)
                     .create()
             }
-            is com.github.amondeshir.rustroverronremix.language.psi.RONObjectName -> if (parent.ident == element) {
+            is RONObjectName -> if (parent.ident == element) {
                 holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(RONColor.OBJECT_NAME.textAttributesKey)
                     .create()
             }
-            is com.github.amondeshir.rustroverronremix.language.psi.RONNamedField -> if (parent.fieldName == element) {
+            is RONNamedField -> if (parent.fieldName == element) {
                 holder
                     .newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(RONColor.KEY_NAME.textAttributesKey)

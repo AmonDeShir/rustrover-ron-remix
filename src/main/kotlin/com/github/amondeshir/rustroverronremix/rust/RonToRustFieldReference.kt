@@ -8,9 +8,9 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.util.parentOfType
 import org.rust.lang.core.psi.ext.RsMod
 
-class RonToRustFieldReference(ronFieldName: com.github.amondeshir.rustroverronremix.language.psi.RONFieldName) : com.github.amondeshir.rustroverronremix.rust.RonToRustReferenceCached<com.github.amondeshir.rustroverronremix.language.psi.RONFieldName>(ronFieldName) {
+class RonToRustFieldReference(ronFieldName: RONFieldName) : RonToRustReferenceCached<RONFieldName>(ronFieldName) {
     companion object {
-        fun createLookupItem(element: com.github.amondeshir.rustroverronremix.rust.RsInferredField) =
+        fun createLookupItem(element: RsInferredField) =
             element.decl.parentOfType<RsMod>()?.let { nameElement ->
                 val crate = nameElement.containingCrate.normName
                 val path = nameElement.crateRelativePath
@@ -26,7 +26,7 @@ class RonToRustFieldReference(ronFieldName: com.github.amondeshir.rustroverronre
 
     override fun getVariants(): Array<LookupElement> = when {
         DumbService.isDumb(element.project) -> emptyArray()
-        else -> element.inference.variants.map(com.github.amondeshir.rustroverronremix.rust.RonToRustFieldReference.Companion::createLookupItem).toTypedArray()
+        else -> element.inference.variants.map(Companion::createLookupItem).toTypedArray()
     }
 
     override fun calculateDefaultRangeInElement() = TextRange(0, element.textLength)

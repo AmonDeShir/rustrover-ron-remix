@@ -36,7 +36,7 @@ class RONAstBlock(
 
     override fun getChildAttributes(newChildIndex: Int): ChildAttributes {
         val indent = when (node.elementType) {
-            com.github.amondeshir.rustroverronremix.language.psi.RONTypes.OBJECT_BODY, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.MAP, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.LIST -> Indent.getNormalIndent()
+            RONTypes.OBJECT_BODY, RONTypes.MAP, RONTypes.LIST -> Indent.getNormalIndent()
             else -> Indent.getNoneIndent()
         }
         return ChildAttributes(indent, null)
@@ -69,17 +69,17 @@ data class RONFormatterContext(
 fun createSpacingBuilder(commonSettings: CommonCodeStyleSettings): SpacingBuilder =
     SpacingBuilder(commonSettings)
         // ,
-        .after(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMA).spacing(1, 1, 0, true, 0)
-        .before(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMA).spaceIf(false)
+        .after(RONTypes.COMMA).spacing(1, 1, 0, true, 0)
+        .before(RONTypes.COMMA).spaceIf(false)
         // [ ]
-        .after(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETL).spaceIf(false)
-        .before(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETR).spaceIf(false)
+        .after(RONTypes.BRACKETL).spaceIf(false)
+        .before(RONTypes.BRACKETR).spaceIf(false)
         // { }
-        .after(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACEL).spaceIf(false)
-        .before(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACER).spaceIf(false)
+        .after(RONTypes.BRACEL).spaceIf(false)
+        .before(RONTypes.BRACER).spaceIf(false)
         // ( )
-        .after(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISL).spaceIf(false)
-        .before(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISR).spaceIf(false)
+        .after(RONTypes.PARENTHESISL).spaceIf(false)
+        .before(RONTypes.PARENTHESISR).spaceIf(false)
 
 private fun Block.computeSpacing(child1: Block?, child2: Block, ctx: RONFormatterContext): Spacing? {
     return ctx.spacingBuilder.getSpacing(this, child1, child2)
@@ -90,8 +90,8 @@ private fun ASTNode?.isWhitespaceOrEmpty() = this == null || textLength == 0 || 
 private fun RONAstBlock.computeIndent(child: ASTNode): Indent? {
     val isCornerChild = node.firstChildNode == child || node.lastChildNode == child
     return when (node.elementType) {
-        com.github.amondeshir.rustroverronremix.language.psi.RONTypes.OBJECT_BODY, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.MAP, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.LIST -> when {
-            isCornerChild || child.elementType == com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMA -> Indent.getNoneIndent()
+        RONTypes.OBJECT_BODY, RONTypes.MAP, RONTypes.LIST -> when {
+            isCornerChild || child.elementType == RONTypes.COMMA -> Indent.getNoneIndent()
             else -> Indent.getNormalIndent()
         }
         else -> Indent.getNoneIndent()

@@ -12,7 +12,7 @@ import com.intellij.psi.util.parentOfType
 import org.rust.lang.core.psi.ext.*
 import org.rust.lang.core.stubs.index.RsNamedElementIndex
 
-class RonToRustTypeReference(ronObjectName: com.github.amondeshir.rustroverronremix.language.psi.RONObjectName) : RonToRustReferenceCached<com.github.amondeshir.rustroverronremix.language.psi.RONObjectName>(ronObjectName) {
+class RonToRustTypeReference(ronObjectName: RONObjectName) : RonToRustReferenceCached<RONObjectName>(ronObjectName) {
     private fun createLookupItem(element: RsNamedElement): LookupElement =
         element.parentOfType<RsMod>()?.let { nameElement ->
             val crate = nameElement.containingCrate.normName
@@ -36,7 +36,7 @@ class RonToRustTypeReference(ronObjectName: com.github.amondeshir.rustroverronre
 
                 val fieldVariants = inference
                     .fieldVariants
-                    .map { com.github.amondeshir.rustroverronremix.rust.RonToRustFieldReference.createLookupItem(it) }
+                    .map { RonToRustFieldReference.createLookupItem(it) }
                     .toTypedArray()
 
                 (typeVariants + fieldVariants)

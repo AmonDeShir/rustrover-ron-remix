@@ -26,7 +26,7 @@ class RONParserDefinition : ParserDefinition {
 
     override fun getStringLiteralElements(): TokenSet = STRING_LITERALS
 
-    override fun createElement(node: ASTNode): PsiElement = com.github.amondeshir.rustroverronremix.language.psi.RONTypes.Factory.createElement(node)
+    override fun createElement(node: ASTNode): PsiElement = RONTypes.Factory.createElement(node)
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = RONFile(viewProvider)
 
@@ -34,8 +34,8 @@ class RONParserDefinition : ParserDefinition {
         ParserDefinition.SpaceRequirements.MAY
 
     companion object {
-        val COMMENTS = TokenSet.create(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMENT, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BLOCK_COMMENT)
-        val STRING_LITERALS = TokenSet.create(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.STRING, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.RAW_STRING)
+        val COMMENTS = TokenSet.create(RONTypes.COMMENT, RONTypes.BLOCK_COMMENT)
+        val STRING_LITERALS = TokenSet.create(RONTypes.STRING, RONTypes.RAW_STRING)
         val FILE = IFileElementType(RONLanguage.INSTANCE)
     }
 }

@@ -13,13 +13,13 @@ class RONMapCheckerAnnotator : CheckerAnnotator()  {
             CheckerAnnotatorResult.Ok
         } else {
             when (element) {
-                is com.github.amondeshir.rustroverronremix.language.psi.RONMapEntry -> checkMapEntry(element)
+                is RONMapEntry -> checkMapEntry(element)
                 else -> CheckerAnnotatorResult.Ok
             }
         }
 
-    private fun checkMapEntry(mapEntry: com.github.amondeshir.rustroverronremix.language.psi.RONMapEntry): CheckerAnnotatorResult {
-        val filteredEntries = (mapEntry.parent as com.github.amondeshir.rustroverronremix.language.psi.RONMap)
+    private fun checkMapEntry(mapEntry: RONMapEntry): CheckerAnnotatorResult {
+        val filteredEntries = (mapEntry.parent as RONMap)
             .mapEntryList
             .asSequence()
             .filterNot { it == mapEntry }

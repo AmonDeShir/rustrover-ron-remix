@@ -20,21 +20,21 @@ class RONBaseBraceMatcher : PairedBraceMatcher {
 
     companion object {
         private val PAIRS = arrayOf(
-            BracePair(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACEL, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACER, true),
-            BracePair(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETL, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETR, true),
-            BracePair(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISL, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISR, true),
-            BracePair(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.EXT_PREFIX, com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETR, false)
+            BracePair(RONTypes.BRACEL, RONTypes.BRACER, true),
+            BracePair(RONTypes.BRACKETL, RONTypes.BRACKETR, true),
+            BracePair(RONTypes.PARENTHESISL, RONTypes.PARENTHESISR, true),
+            BracePair(RONTypes.EXT_PREFIX, RONTypes.BRACKETR, false)
         )
 
         private val InsertPairBraceBefore = TokenSet.orSet(
             RON_COMMENTS,
             tokenSetOf(
                 TokenType.WHITE_SPACE,
-                com.github.amondeshir.rustroverronremix.language.psi.RONTypes.COMMA,
-                com.github.amondeshir.rustroverronremix.language.psi.RONTypes.PARENTHESISR,
-                com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACKETR,
-                com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACER,
-                com.github.amondeshir.rustroverronremix.language.psi.RONTypes.BRACEL
+                RONTypes.COMMA,
+                RONTypes.PARENTHESISR,
+                RONTypes.BRACKETR,
+                RONTypes.BRACER,
+                RONTypes.BRACEL
             )
         )
     }

@@ -16,14 +16,14 @@ class RONOptionCompletionContributor : CompletionContributor() {
     init {
         extend(
             CompletionType.BASIC,
-            PlatformPatterns.psiElement(com.github.amondeshir.rustroverronremix.language.psi.RONTypes.IDENT),
+            PlatformPatterns.psiElement(RONTypes.IDENT),
             object : CompletionProvider<CompletionParameters>() {
                 override fun addCompletions(
                     parameters: CompletionParameters,
                     context: ProcessingContext,
                     resultSet: CompletionResultSet
                 ) {
-                    if (parameters.position.parentOfType<com.github.amondeshir.rustroverronremix.language.psi.RONExt>(false) != null) {
+                    if (parameters.position.parentOfType<RONExt>(false) != null) {
                         resultSet.addElement(
                             LookupElementBuilder
                                 .create("enable()")
@@ -32,7 +32,7 @@ class RONOptionCompletionContributor : CompletionContributor() {
                                 }
                         )
                     }
-                    if (parameters.position.parent is com.github.amondeshir.rustroverronremix.language.psi.RONObjectName && parameters.position.parent.parent is com.github.amondeshir.rustroverronremix.language.psi.RONValue) {
+                    if (parameters.position.parent is RONObjectName && parameters.position.parent.parent is RONValue) {
                         resultSet.addElement(
                             LookupElementBuilder
                                 .create("Some()")

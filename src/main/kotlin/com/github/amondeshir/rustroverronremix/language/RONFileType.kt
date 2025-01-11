@@ -11,7 +11,7 @@ class RONFileType private constructor() : LanguageFileType(RONLanguage.INSTANCE)
 
     override fun getDefaultExtension(): String = "ron"
 
-    override fun getIcon(): Icon? = RONIcons.FILE
+    override fun getIcon(): Icon = RONIcons.FILE
 
     companion object {
         @JvmStatic

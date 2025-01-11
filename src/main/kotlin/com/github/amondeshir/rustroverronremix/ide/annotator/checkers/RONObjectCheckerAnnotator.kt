@@ -10,21 +10,21 @@ class RONObjectCheckerAnnotator : CheckerAnnotator()  {
             CheckerAnnotatorResult.Ok
         } else {
             when (element) {
-                is com.github.amondeshir.rustroverronremix.language.psi.RONNamedField -> checkObjectEntry(element)
-                is com.github.amondeshir.rustroverronremix.language.psi.RONValue -> checkValue(element)
+                is RONNamedField -> checkObjectEntry(element)
+                is RONValue -> checkValue(element)
                 else -> CheckerAnnotatorResult.Ok
             }
         }
 
-    private fun checkValue(value: com.github.amondeshir.rustroverronremix.language.psi.RONValue): CheckerAnnotatorResult {
-        if (value.parent is com.github.amondeshir.rustroverronremix.language.psi.RONObjectBody) {
+    private fun checkValue(value: RONValue): CheckerAnnotatorResult {
+        if (value.parent is RONObjectBody) {
             return CheckerAnnotatorResult.Error("Object entry must have a field name", value.textRange)
         }
         return CheckerAnnotatorResult.Ok
     }
 
-    private fun checkObjectEntry(objectEntry: com.github.amondeshir.rustroverronremix.language.psi.RONNamedField): CheckerAnnotatorResult {
-        val filteredEntries = (objectEntry.parent as com.github.amondeshir.rustroverronremix.language.psi.RONObjectBody)
+    private fun checkObjectEntry(objectEntry: RONNamedField): CheckerAnnotatorResult {
+        val filteredEntries = (objectEntry.parent as RONObjectBody)
             .namedFieldList
             .asSequence()
             .filterNot { it == objectEntry }
