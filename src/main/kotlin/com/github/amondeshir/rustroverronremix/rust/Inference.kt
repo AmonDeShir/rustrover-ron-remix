@@ -28,7 +28,6 @@ import org.rust.lang.core.types.rawType
 import org.rust.lang.core.types.ty.Ty as RsType
 import org.rust.lang.core.types.ty.TyAdt as RsTypeAdt
 import org.rust.lang.core.types.ty.TyArray as RsTypeArray
-import org.rust.lang.core.types.ty.TyReference as RsTypeRef
 import org.rust.lang.core.types.ty.TySlice as RsTypeSlice
 import org.rust.lang.core.types.ty.TyTuple as RsTypeTuple
 
@@ -193,11 +192,30 @@ private class InferenceBuilder(
      * And Box types can be deserialized.
      */
     private fun RsType.deref(): RsType = when {
-        this is RsTypeRef -> this.referenced.substitute(this.typeParameterValues).deref()
+        this.isRustTyReference() -> this.unwrapRustTyReference()?.deref() ?: this
         this is RsTypeAdt && this.item == this.item.knownItems.Box -> {
             this.typeArguments.first().substitute(this.typeParameterValues).deref()
         }
         else -> this
+    }
+
+    private fun RsType.isRustTyReference(): Boolean =
+        javaClass.name == "org.rust.lang.core.types.ty.TyReference"
+
+    private fun RsType.unwrapRustTyReference(): RsType? {
+        val referenced = javaClass
+            .methods
+            .firstOrNull { it.name == "getReferenced" && it.parameterCount == 0 }
+            ?.invoke(this) as? RsType
+            ?: return null
+
+        val typeParameterValues = javaClass
+            .methods
+            .firstOrNull { it.name == "getTypeParameterValues" && it.parameterCount == 0 }
+            ?.invoke(this) as? Substitution
+            ?: return referenced
+
+        return referenced.substitute(typeParameterValues)
     }
 
     private fun Iterable<RsType>.deref(): List<RsType> = map { it.deref() }
