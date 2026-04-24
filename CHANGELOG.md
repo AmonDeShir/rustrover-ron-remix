@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## 0.3.7 - 2026-04-24
+
+### Changed
+- Update supported RustRover baseline to 2025.2 (build 252)
+- Remove until-build upper bound to keep compatibility with future IDE updates
+
 ### Changed
 - Add support for Rust Rover 2024.3.2
 - Drop support for intellij and clion

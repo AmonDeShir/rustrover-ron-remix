@@ -87,7 +87,12 @@ intellijPlatform {
 
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
-            untilBuild = providers.gradleProperty("pluginUntilBuild")
+
+            // JetBrains Marketplace recommends omitting until-build to avoid blocking future IDE updates.
+            val untilBuildProp = providers.gradleProperty("pluginUntilBuild").orNull
+            if (!untilBuildProp.isNullOrBlank()) {
+                untilBuild = untilBuildProp
+            }
         }
     }
 
