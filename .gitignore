@@ -3,3 +3,4 @@
 build
 src/test/data/only.txt
 .intellijPlatform
+.kotlin
