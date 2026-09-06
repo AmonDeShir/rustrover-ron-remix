@@ -166,6 +166,10 @@ tasks {
         dependsOn(generateParser, generateLexer)
     }
 
+    named("instrumentTestCode") {
+        mustRunAfter("instrumentCode")
+    }
+
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
