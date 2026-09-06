@@ -31,7 +31,13 @@ Features included:
   Download the [latest release](https://github.com/AmonDeShir/rustrover-ron-remix/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
----
+## Code Generation
+
+To regenerate the RON parser, PSI classes, and lexer in `src/main/gen`, run from the project root:
+
+```bash
+./gradlew.bat gen
+```
 
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 

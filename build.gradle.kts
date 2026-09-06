@@ -17,7 +17,7 @@ version = providers.gradleProperty("pluginVersion").get()
 
 // Set the JVM language level used to build the project.
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
 // add generated java files to project
@@ -37,17 +37,28 @@ repositories {
 dependencies {
     testImplementation(libs.junit)
 
-    // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
+        create(
+            providers.gradleProperty("platformType"),
+            providers.gradleProperty("platformVersion")
+        )
 
-        // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
-        bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
+        providers.gradleProperty("platformBundledPlugins")
+            .orNull
+            ?.split(',')
+            ?.map { it.trim() }
+            ?.filter { it.isNotEmpty() }
+            ?.takeIf { it.isNotEmpty() }
+            ?.let { bundledPlugins(it) }
 
-        // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file for plugin from JetBrains Marketplace.
-        plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
+        providers.gradleProperty("platformPlugins")
+            .orNull
+            ?.split(',')
+            ?.map { it.trim() }
+            ?.filter { it.isNotEmpty() }
+            ?.takeIf { it.isNotEmpty() }
+            ?.let { plugins(it) }
 
-        instrumentationTools()
         pluginVerifier()
         zipSigner()
         testFramework(TestFrameworkType.Platform)
@@ -131,6 +142,34 @@ kover {
 }
 
 tasks {
+    val languagePath = "com/github/amondeshir/rustroverronremix/language"
+
+    generateParser {
+        classpath = configurations.compileClasspath.get()
+        sourceFile.set(layout.projectDirectory.file("src/main/kotlin/$languagePath/RON.bnf"))
+        targetRootOutputDir.set(layout.projectDirectory.dir("src/main/gen"))
+        pathToParser.set("$languagePath/parser/_RONParser.java")
+        pathToPsiRoot.set("$languagePath/psi")
+        purgeOldFiles.set(true)
+    }
+
+    generateLexer {
+        sourceFile.set(layout.projectDirectory.file("src/main/kotlin/$languagePath/__RONLexer.flex"))
+        targetOutputDir.set(layout.projectDirectory.dir("src/main/gen/$languagePath"))
+        purgeOldFiles.set(false)
+        mustRunAfter(generateParser)
+    }
+
+    register("gen") {
+        group = "grammarkit"
+        description = "Generates the RON parser, PSI classes, and lexer."
+        dependsOn(generateParser, generateLexer)
+    }
+
+    named("instrumentTestCode") {
+        mustRunAfter("instrumentCode")
+    }
+
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
