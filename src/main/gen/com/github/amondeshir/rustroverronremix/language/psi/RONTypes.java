@@ -1,10 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package com.github.amondeshir.rustroverronremix.language.psi;
 
-import com.github.amondeshir.rustroverronremix.language.psi.impl.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.PsiElement;
+import com.intellij.lang.ASTNode;
+import com.github.amondeshir.rustroverronremix.language.psi.impl.*;
 
 public interface RONTypes {
 

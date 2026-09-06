@@ -17,7 +17,7 @@ version = providers.gradleProperty("pluginVersion").get()
 
 // Set the JVM language level used to build the project.
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
 // add generated java files to project
@@ -59,7 +59,6 @@ dependencies {
             ?.takeIf { it.isNotEmpty() }
             ?.let { plugins(it) }
 
-        instrumentationTools()
         pluginVerifier()
         zipSigner()
         testFramework(TestFrameworkType.Platform)
@@ -143,6 +142,30 @@ kover {
 }
 
 tasks {
+    val languagePath = "com/github/amondeshir/rustroverronremix/language"
+
+    generateParser {
+        classpath = configurations.compileClasspath.get()
+        sourceFile.set(layout.projectDirectory.file("src/main/kotlin/$languagePath/RON.bnf"))
+        targetRootOutputDir.set(layout.projectDirectory.dir("src/main/gen"))
+        pathToParser.set("$languagePath/parser/_RONParser.java")
+        pathToPsiRoot.set("$languagePath/psi")
+        purgeOldFiles.set(true)
+    }
+
+    generateLexer {
+        sourceFile.set(layout.projectDirectory.file("src/main/kotlin/$languagePath/__RONLexer.flex"))
+        targetOutputDir.set(layout.projectDirectory.dir("src/main/gen/$languagePath"))
+        purgeOldFiles.set(false)
+        mustRunAfter(generateParser)
+    }
+
+    register("gen") {
+        group = "grammarkit"
+        description = "Generates the RON parser, PSI classes, and lexer."
+        dependsOn(generateParser, generateLexer)
+    }
+
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
